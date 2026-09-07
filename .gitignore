@@ -1,0 +1,14 @@
+.env
+.env.*
+!.env.example
+frontend/.angular/
+quality/tools/node_modules/
+quality/*.report.html
+quality/*.report.json
+backend/data/
+backend/target/
+frontend/node_modules/
+frontend/dist/
+.idea/
+.vscode/
+*.log

@@ -1,0 +1,77 @@
+<div class="demo-shell" [style.--accent]="demo().accent" [style.--soft]="demo().soft">
+  <aside class="demo-sidebar" [class.open]="sidebarOpen()">
+    <button class="sidebar-close" type="button" (click)="sidebarOpen.set(false)" aria-label="Cerrar menú del demo"><i class="bi bi-x-lg"></i></button>
+    <div class="demo-brand"><app-brand-logo [compact]="true"></app-brand-logo><div class="demo-product"><b>{{ demo().product }}</b><small>Demo {{ demo().industry }}</small></div></div>
+    <div class="demo-label">MENÚ PRINCIPAL</div>
+    <nav>
+      <button *ngFor="let item of demo().navigation; let i = index" (click)="selectView(item)" [class.active]="activeView() === item">
+        <i class="bi" [ngClass]="['bi-grid-1x2-fill','bi-list-check','bi-box-seam','bi-people','bi-bar-chart'][i] || 'bi-circle'"></i>{{ item }}
+      </button>
+    </nav>
+    <div class="demo-support"><i class="bi bi-life-preserver"></i><div><b>¿Necesitas ayuda?</b><span>Soporte GOZU disponible</span></div></div>
+    <a routerLink="/" fragment="software-medida" class="back-link"><i class="bi bi-arrow-left"></i> Volver a software a medida</a>
+  </aside>
+  <div class="demo-overlay" *ngIf="sidebarOpen()" (click)="sidebarOpen.set(false)"></div>
+
+  <main class="demo-main">
+    <header class="demo-topbar">
+      <button class="menu-button" (click)="sidebarOpen.set(true)" aria-label="Abrir menú del demo"><i class="bi bi-list"></i></button>
+      <div><span class="demo-mode"><i class="bi bi-circle-fill"></i> DEMO INTERACTIVO</span><small>Datos ficticios para mostrar el funcionamiento</small></div>
+      <div class="top-actions"><button aria-label="Notificaciones"><i class="bi bi-bell"></i><b>3</b></button><span class="avatar">GM</span></div>
+    </header>
+
+    <section class="demo-content">
+      <div class="welcome-row"><div><p>{{ demo().industry }}</p><h1>{{ activeView() }}</h1><span>Actualizado hace unos segundos</span></div><button class="action-button" (click)="activeView() === 'Resumen' ? simulateAction() : openCreate()"><i class="bi bi-plus-lg"></i> {{ module()?.action || 'Nueva operación' }}</button></div>
+
+      <ng-container *ngIf="activeView() === 'Resumen'; else moduleView">
+        <article class="product-hero">
+          <img [src]="demo().image" [alt]="demo().industry">
+          <div class="hero-gradient"></div>
+          <div class="hero-content"><span>SISTEMA {{ demo().industry | uppercase }}</span><h2>{{ demo().headline }}</h2><p>{{ demo().description }}</p><button (click)="simulateAction()">Explorar flujo <i class="bi bi-arrow-right"></i></button></div>
+        </article>
+
+        <div class="metric-grid">
+          <article *ngFor="let metric of demo().metrics"><div class="metric-icon"><i class="bi" [ngClass]="metric.icon"></i></div><div><span>{{ metric.label }}</span><strong>{{ metric.value }}</strong><small>{{ metric.trend }}</small></div></article>
+        </div>
+
+        <div class="dashboard-grid">
+          <article class="surface chart-card">
+            <header><div><h3>Rendimiento semanal</h3><p>Actividad registrada en los últimos 7 días</p></div><select aria-label="Periodo"><option>Esta semana</option><option>Este mes</option></select></header>
+            <div class="chart"><div class="bar-column" *ngFor="let value of demo().chart; let i = index"><div class="bar-track"><span [style.height.%]="value"></span></div><small>{{ demo().chartLabels[i] }}</small></div></div>
+          </article>
+          <article class="surface activity-card">
+            <header><div><h3>Actividad reciente</h3><p>Operaciones que requieren seguimiento</p></div><button aria-label="Más opciones"><i class="bi bi-three-dots"></i></button></header>
+            <div class="activity-row" *ngFor="let item of demo().activities"><span class="activity-dot"></span><div><strong>{{ item.title }}</strong><small>{{ item.detail }}</small></div><div class="activity-value"><b>{{ item.value }}</b><span>{{ item.state }}</span></div></div>
+            <button class="view-all" (click)="simulateAction()">Ver todas las operaciones <i class="bi bi-arrow-right"></i></button>
+          </article>
+        </div>
+        <section class="workflow-surface"><header><div><span>FLUJO COMPLETO</span><h3>Así trabaja {{ demo().product }}</h3><p>La demo conecta cada etapa; no son pantallas aisladas.</p></div><b>{{ demo().workflow.length }} etapas</b></header><div class="workflow-grid"><article *ngFor="let step of demo().workflow; let i = index"><span>{{ i + 1 }}</span><div><b>{{ step.title }}</b><p>{{ step.detail }}</p></div></article></div></section>
+        <section class="requirements-surface"><div><span>VARIABLES QUE DEFINIMOS</span><h3>Lo que cambia según tu operación</h3><p>{{ demo().outcome }}</p></div><ul><li *ngFor="let control of demo().controls"><i class="bi bi-check2-circle"></i>{{ control }}</li></ul></section>
+      </ng-container>
+
+      <ng-template #moduleView>
+        <section class="module-surface" *ngIf="module() as currentModule">
+          <header class="module-heading"><div><span>FLUJO OPERATIVO</span><h2>{{ activeView() }}</h2><p>{{ currentModule.description }}</p></div><div class="module-count"><b>{{ filteredRows().length }}</b><span>registros visibles</span></div></header>
+          <div class="module-toolbar">
+            <label class="search-box"><i class="bi bi-search"></i><input type="search" aria-label="Buscar registros" placeholder="Buscar por código, cliente o estado" [value]="search()" (input)="updateSearch($any($event.target).value)"></label>
+            <select aria-label="Filtrar por estado" [value]="statusFilter()" (change)="updateStatus($any($event.target).value)"><option *ngFor="let status of statuses()" [value]="status">{{ status }}</option></select>
+            <button (click)="openCreate()"><i class="bi bi-plus-lg"></i>{{ currentModule.action }}</button>
+          </div>
+          <div class="module-table-wrap"><table class="module-table"><thead><tr><th *ngFor="let column of currentModule.columns">{{ column }}</th><th></th></tr></thead><tbody><tr *ngFor="let row of filteredRows()" (click)="openDetail(row)" tabindex="0" (keydown.enter)="openDetail(row)"><td *ngFor="let cell of row; let last = last"><span [class.state-pill]="last">{{ cell }}</span></td><td><button aria-label="Ver detalle"><i class="bi bi-chevron-right"></i></button></td></tr></tbody></table></div>
+          <div class="empty-state" *ngIf="!filteredRows().length"><i class="bi bi-search"></i><b>No encontramos registros</b><span>Prueba con otro término o elimina el filtro.</span></div>
+          <footer class="module-footer"><span><i class="bi bi-info-circle"></i> Datos de demostración. Los campos finales se configuran según el negocio.</span><button (click)="simulateAction()">Exportar vista <i class="bi bi-download"></i></button></footer>
+        </section>
+      </ng-template>
+
+      <section class="demo-note"><i class="bi bi-lightbulb-fill"></i><div><b>Este demo se adapta al negocio del cliente.</b><span>Los módulos, campos, permisos, reportes, colores e integraciones se definen durante el levantamiento de requerimientos.</span></div><a routerLink="/" fragment="cotizar">Cotizar mi versión</a></section>
+      <nav class="demo-switcher" aria-label="Navegar entre demostraciones"><a [routerLink]="['/demo', previousDemo().slug]" (click)="prepareDemoSwitch()"><i class="bi bi-arrow-left"></i><span>Demo anterior<small>{{ previousDemo().product }}</small></span></a><a routerLink="/" fragment="software-medida" class="all-demos"><i class="bi bi-house"></i>Volver a GOZU</a><a [routerLink]="['/demo', nextDemo().slug]" (click)="prepareDemoSwitch()"><span>Siguiente demo<small>{{ nextDemo().product }}</small></span><i class="bi bi-arrow-right"></i></a></nav>
+    </section>
+  </main>
+
+  <div class="drawer-backdrop" *ngIf="selectedRow()" (click)="selectedRow.set(null)"></div>
+  <aside class="detail-drawer" [class.open]="selectedRow()"><header><div><span>DETALLE DEL REGISTRO</span><h2>{{ activeView() }}</h2></div><button (click)="selectedRow.set(null)" aria-label="Cerrar detalle"><i class="bi bi-x-lg"></i></button></header><div class="detail-list" *ngIf="selectedRow() as row"><div *ngFor="let column of module()?.columns; let i = index"><span>{{ column }}</span><strong>{{ row[i] }}</strong></div></div><div class="state-flow" *ngIf="module() as currentModule"><span>FLUJO DE ESTADOS</span><div><b *ngFor="let state of currentModule.statusFlow" [class.current]="selectedStatus() === state">{{ state }}</b></div></div><footer><button class="secondary" (click)="selectedRow.set(null)">Cerrar</button><button (click)="advanceSelected()">Avanzar estado <i class="bi bi-arrow-right"></i></button></footer></aside>
+
+  <div class="modal-backdrop" *ngIf="modalOpen()" (click)="modalOpen.set(false)"></div>
+  <section class="operation-modal" *ngIf="modalOpen()"><header><div><span>NUEVO REGISTRO</span><h2>{{ module()?.action }}</h2></div><button type="button" (click)="modalOpen.set(false)" aria-label="Cerrar formulario"><i class="bi bi-x-lg"></i></button></header><form (ngSubmit)="createOperation()"><label>Referencia o código<input name="reference" [(ngModel)]="newReference" placeholder="Ej. GOZU-2048"></label><label>Nombre o descripción<input name="name" [(ngModel)]="newName" required placeholder="Describe el registro"></label><div class="modal-row"><label>Monto referencial S/<input name="amount" [(ngModel)]="newAmount" inputmode="decimal" placeholder="0.00"></label><label>Estado inicial<select name="status" [(ngModel)]="newStatus"><option *ngFor="let state of module()?.statusFlow" [value]="state">{{ state }}</option></select></label></div><footer><button type="button" class="secondary" (click)="modalOpen.set(false)">Cancelar</button><button type="submit" [disabled]="!newName.trim()">Guardar en el demo</button></footer></form></section>
+  <div class="demo-toast" *ngIf="notice()"><i class="bi bi-check-circle-fill"></i>{{ notice() }}</div>
+</div>

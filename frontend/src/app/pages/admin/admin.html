@@ -1,0 +1,123 @@
+<div class="login-page" *ngIf="!authenticated(); else adminShell">
+  <a routerLink="/" class="back-link"><i class="bi bi-arrow-left"></i> Volver a GOZU</a>
+  <div class="login-layout">
+    <section class="login-visual">
+      <img src="/images/team.jpg" alt="Equipo desarrollando la plataforma GOZU">
+      <div class="login-visual-overlay"></div>
+      <div class="login-visual-copy"><span>GESTIÓN INTERNA</span><h2>Las decisiones importantes, respaldadas por datos.</h2><p>Control comercial, suscripciones y rentabilidad en una experiencia simple.</p><div><b><i class="bi bi-check2"></i> Sesión protegida</b><b><i class="bi bi-check2"></i> Acceso privado</b></div></div>
+    </section>
+    <section class="login-card">
+      <div class="brand"><app-brand-logo></app-brand-logo></div>
+      <p class="eyebrow">Acceso administrativo</p>
+      <h1>Bienvenido de nuevo.</h1>
+      <p class="login-copy">Ingresa con las credenciales privadas de GOZU Sistemas.</p>
+      <form [formGroup]="loginForm" (ngSubmit)="login()" novalidate>
+        <label>Correo administrador<input type="email" formControlName="username" autocomplete="username" placeholder="correo@empresa.pe"></label>
+        <label>Contraseña<input type="password" formControlName="password" autocomplete="current-password" placeholder="••••••••••••"></label>
+        <p class="form-error" *ngIf="error()"><i class="bi bi-exclamation-circle"></i> {{ error() }}</p>
+        <button class="primary-btn" type="submit" [disabled]="loading()">
+          <span class="spinner-border spinner-border-sm" *ngIf="loading()"></span>
+          {{ loading() ? 'Verificando…' : 'Ingresar de forma segura' }}
+        </button>
+      </form>
+      <div class="security-note"><i class="bi bi-shield-lock"></i><span>La sesión se protege en el servidor. La contraseña nunca se muestra ni se guarda en el navegador.</span></div>
+    </section>
+  </div>
+</div>
+
+<ng-template #adminShell>
+  <div class="admin-shell">
+    <aside class="sidebar" [class.open]="sidebarOpen()">
+      <div class="sidebar-brand"><app-brand-logo [inverse]="true" [compact]="true"></app-brand-logo></div>
+      <nav aria-label="Administración">
+        <button [class.active]="activeTab() === 'overview'" (click)="setTab('overview')"><i class="bi bi-grid-1x2-fill"></i> Resumen</button>
+        <button [class.active]="activeTab() === 'leads'" (click)="setTab('leads')"><i class="bi bi-funnel-fill"></i> Prospectos <b>{{ leads().length }}</b></button>
+        <button [class.active]="activeTab() === 'clients'" (click)="setTab('clients')"><i class="bi bi-people-fill"></i> Clientes</button>
+        <button [class.active]="activeTab() === 'services'" (click)="setTab('services')"><i class="bi bi-box-seam-fill"></i> Servicios</button>
+        <button [class.active]="activeTab() === 'finances'" (click)="setTab('finances')"><i class="bi bi-bar-chart-fill"></i> Finanzas</button>
+      </nav>
+      <div class="sidebar-bottom">
+        <a routerLink="/" target="_blank"><i class="bi bi-box-arrow-up-right"></i> Ver web pública</a>
+        <button (click)="logout()"><i class="bi bi-door-open"></i> Cerrar sesión</button>
+      </div>
+    </aside>
+    <div class="sidebar-overlay" *ngIf="sidebarOpen()" (click)="sidebarOpen.set(false)"></div>
+
+    <main class="admin-main">
+      <header class="topbar">
+        <button class="mobile-menu" (click)="sidebarOpen.set(true)" aria-label="Abrir menú"><i class="bi bi-list"></i></button>
+        <div><span class="live-dot"></span> Operación en línea</div>
+        <div class="admin-profile"><span>Administrador</span><b>GA</b></div>
+      </header>
+
+      <div class="toast-message success" *ngIf="success()"><i class="bi bi-check-circle-fill"></i>{{ success() }}</div>
+      <div class="toast-message error" *ngIf="error()"><i class="bi bi-exclamation-triangle-fill"></i>{{ error() }}<button (click)="error.set('')">×</button></div>
+
+      <section class="content" *ngIf="activeTab() === 'overview'">
+        <div class="page-heading"><div><p class="eyebrow">Visión del negocio</p><h1>Tu operación, clara y medible.</h1><p>Indicadores del mes y actividad comercial actualizada.</p></div><button class="outline-btn" (click)="loadData()"><i class="bi bi-arrow-clockwise"></i> Actualizar</button></div>
+        <div class="metric-grid">
+          <article class="metric-card emphasis"><div class="metric-icon"><i class="bi bi-graph-up-arrow"></i></div><span>Ingreso recurrente mensual</span><strong>{{ formatMoney(dashboard().mrr) }}</strong><small>Suscripciones activas</small></article>
+          <article class="metric-card"><div class="metric-icon green"><i class="bi bi-arrow-down-left"></i></div><span>Ingresos del mes</span><strong>{{ formatMoney(dashboard().income) }}</strong><small>Pagos registrados</small></article>
+          <article class="metric-card"><div class="metric-icon orange"><i class="bi bi-arrow-up-right"></i></div><span>Gastos del mes</span><strong>{{ formatMoney(dashboard().expenses) }}</strong><small>Costos operativos</small></article>
+          <article class="metric-card"><div class="metric-icon violet"><i class="bi bi-wallet2"></i></div><span>Utilidad del mes</span><strong>{{ formatMoney(dashboard().profit) }}</strong><small>Ingresos menos gastos</small></article>
+        </div>
+        <div class="web-metric-grid">
+          <article><span>Visitas web del mes</span><strong>{{ dashboard().pageViews }}</strong><small>Entradas registradas en la página</small></article>
+          <article><span>Clics de intención</span><strong>{{ dashboard().ctaClicks }}</strong><small>CTA y WhatsApp</small></article>
+          <article><span>Conversión a prospecto</span><strong>{{ dashboard().leadConversion | number:'1.0-1' }}%</strong><small>Solicitudes / visitas registradas</small></article>
+          <article><span>Plan más consultado</span><strong>{{ dashboard().popularPlan }}</strong><small>Selección comercial del mes</small></article>
+        </div>
+        <div class="overview-grid">
+          <article class="panel health-panel"><div class="panel-title"><div><h2>Embudo comercial</h2><p>Avance real de oportunidades.</p></div><i class="bi bi-funnel"></i></div>
+            <div class="lead-funnel"><div><span>Nuevos</span><b>{{ leadCount('NEW') }}</b><i [style.width.%]="funnelWidth('NEW')"></i></div><div><span>Contactados</span><b>{{ leadCount('CONTACTED') }}</b><i [style.width.%]="funnelWidth('CONTACTED')"></i></div><div><span>Propuestas</span><b>{{ leadCount('PROPOSAL') }}</b><i [style.width.%]="funnelWidth('PROPOSAL')"></i></div><div><span>Ganados</span><b>{{ leadCount('WON') }}</b><i [style.width.%]="funnelWidth('WON')"></i></div></div>
+            <div class="health-row"><span>Clientes activos</span><strong>{{ dashboard().activeClients }}</strong></div>
+            <div class="progress"><div class="progress-bar" [style.width.%]="dashboard().activeClients ? 78 : 0"></div></div>
+            <div class="health-row"><span>Prospectos nuevos</span><strong>{{ dashboard().newLeads }}</strong></div>
+            <div class="progress purple"><div class="progress-bar" [style.width.%]="dashboard().newLeads ? 62 : 0"></div></div>
+            <div class="health-row"><span>Demos vistas este mes</span><strong>{{ dashboard().demoViews }}</strong></div>
+            <div class="health-row compact"><span>Demo más consultada</span><strong class="capitalize">{{ dashboard().popularDemo }}</strong></div>
+            <button class="text-btn" (click)="setTab('leads')">Gestionar oportunidades <i class="bi bi-arrow-right"></i></button>
+          </article>
+          <article class="panel"><div class="panel-title"><div><h2>Actividad reciente</h2><p>Últimos movimientos financieros.</p></div><button class="icon-btn" (click)="setTab('finances')"><i class="bi bi-arrow-right"></i></button></div>
+            <div class="activity-item" *ngFor="let tx of transactions().slice(0, 5)"><span [class.income]="tx.type === 'INCOME'"><i class="bi" [class.bi-arrow-down-left]="tx.type === 'INCOME'" [class.bi-arrow-up-right]="tx.type === 'EXPENSE'"></i></span><div><strong>{{ tx.description }}</strong><small>{{ tx.occurredOn | date:'dd MMM yyyy' }}</small></div><b [class.negative]="tx.type === 'EXPENSE'">{{ tx.type === 'EXPENSE' ? '−' : '+' }}{{ formatMoney(tx.amount) }}</b></div>
+            <p class="empty" *ngIf="!transactions().length">Aún no hay movimientos.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="content" *ngIf="activeTab() === 'leads'">
+        <div class="page-heading"><div><p class="eyebrow">Ventas</p><h1>Prospectos y cotizaciones</h1><p>Cada formulario de la web llega aquí automáticamente.</p></div><span class="count-pill">{{ leads().length }} oportunidades</span></div>
+        <article class="panel table-panel">
+          <div class="table-responsive"><table class="data-table"><thead><tr><th>Prospecto</th><th>Negocio</th><th>Necesidad</th><th>Contacto</th><th>Estado</th></tr></thead><tbody>
+            <tr *ngFor="let lead of leads()"><td><strong>{{ lead.name }}</strong><small>{{ lead.city || 'Perú' }} · {{ lead.createdAt | date:'dd/MM/yy' }}</small></td><td><strong>{{ lead.businessName }}</strong><small>{{ lead.industry }} · Plan {{ lead.preferredPlan || 'por definir' }}</small></td><td><span class="modules-text">{{ lead.modules || 'Por definir' }}</span><small>{{ lead.currentSystem || 'Proceso por confirmar' }} · {{ lead.volumeRange || 'Volumen por confirmar' }}</small><small>{{ lead.budgetRange || 'Inversión por estimar' }} · {{ lead.urgency }}</small></td><td><a [href]="'https://wa.me/51' + lead.phone.replaceAll(' ', '').replace('+51', '')" target="_blank"><i class="bi bi-whatsapp"></i> {{ lead.phone }}</a></td><td><select [value]="lead.status" (change)="changeLeadStatus(lead, $event)" [class]="'status-select ' + statusClass(lead.status)"><option *ngFor="let status of leadStatuses" [value]="status.value">{{ status.label }}</option></select></td></tr>
+          </tbody></table></div><p class="empty large" *ngIf="!leads().length"><i class="bi bi-inbox"></i>No hay prospectos todavía.</p>
+        </article>
+      </section>
+
+      <section class="content" *ngIf="activeTab() === 'clients'">
+        <div class="page-heading"><div><p class="eyebrow">Suscripciones</p><h1>Clientes y mensualidades</h1><p>Controla planes activos y el ingreso recurrente.</p></div><span class="count-pill">{{ dashboard().activeClients }} activos</span></div>
+        <div class="management-grid">
+          <article class="panel form-panel"><h2>Registrar cliente</h2><p>Agrega una nueva cuenta y su plan contratado.</p><form [formGroup]="clientForm" (ngSubmit)="addClient()"><label>Empresa<input formControlName="businessName" placeholder="Nombre comercial"></label><label>Persona de contacto<input formControlName="contactName" placeholder="Nombre completo"></label><div class="form-row"><label>WhatsApp<input formControlName="phone" placeholder="967 953 115"></label><label>Plan<input formControlName="planName" placeholder="Plan Negocio"></label></div><div class="form-row"><label>Mensualidad S/<input type="number" formControlName="monthlyFee"></label><label>Estado<select formControlName="status"><option *ngFor="let status of clientStatuses" [value]="status">{{ status }}</option></select></label></div><button class="primary-btn" [disabled]="saving()"><i class="bi bi-person-plus-fill"></i> Guardar cliente</button></form></article>
+          <article class="panel table-panel"><div class="panel-title"><div><h2>Cartera actual</h2><p>{{ clients().length }} clientes registrados</p></div></div><div class="client-list"><div class="client-item" *ngFor="let client of clients()"><div class="avatar">{{ client.businessName.slice(0, 2).toUpperCase() }}</div><div><strong>{{ client.businessName }}</strong><small>{{ client.contactName }} · {{ client.planName }}</small></div><div class="client-value"><strong>{{ formatMoney(client.monthlyFee) }}</strong><span [class]="'status-badge ' + statusClass(client.status)">{{ client.status }}</span></div></div><p class="empty" *ngIf="!clients().length">Aún no hay clientes.</p></div></article>
+        </div>
+      </section>
+
+      <section class="content" *ngIf="activeTab() === 'services'">
+        <div class="page-heading"><div><p class="eyebrow">Catálogo comercial</p><h1>Servicios y sistemas</h1><p>Lo que agregas aquí se publica en la página principal.</p></div><span class="count-pill">{{ services().length }} servicios</span></div>
+        <div class="management-grid">
+          <article class="panel form-panel"><h2>Nuevo servicio</h2><p>Crea una solución con precio mensual de referencia.</p><form [formGroup]="serviceForm" (ngSubmit)="addService()"><label>Nombre<input formControlName="name" placeholder="Ej. Sistema para hoteles"></label><label>Categoría<input formControlName="category" placeholder="Rubro o tipo"></label><label>Descripción<textarea formControlName="description" rows="4" placeholder="Beneficio, módulos y alcance"></textarea></label><label>Precio desde S/ al mes<input type="number" formControlName="monthlyPrice"></label><label class="check-row"><input type="checkbox" formControlName="active"> Visible en la web pública</label><button class="primary-btn" [disabled]="saving()"><i class="bi bi-plus-lg"></i> Publicar servicio</button></form></article>
+          <div class="service-admin-list"><article class="panel service-admin-card" *ngFor="let service of services()"><div><span>{{ service.category }}</span><h3>{{ service.name }}</h3><p>{{ service.description }}</p></div><footer><strong>Desde {{ formatMoney(service.monthlyPrice) }}/mes</strong><span [class.off]="!service.active"><i class="bi bi-circle-fill"></i>{{ service.active ? 'Publicado' : 'Oculto' }}</span></footer></article></div>
+        </div>
+      </section>
+
+      <section class="content" *ngIf="activeTab() === 'finances'">
+        <div class="page-heading"><div><p class="eyebrow">Rentabilidad</p><h1>Ingresos, gastos y utilidad</h1><p>Registra los movimientos para saber cuánto genera la empresa.</p></div><span class="count-pill positive">Utilidad: {{ formatMoney(dashboard().profit) }}</span></div>
+        <div class="finance-strip"><div><span>Ingresos del mes</span><strong>{{ formatMoney(dashboard().income) }}</strong></div><div><span>Gastos del mes</span><strong>{{ formatMoney(dashboard().expenses) }}</strong></div><div><span>Margen actual</span><strong>{{ dashboard().income ? ((dashboard().profit / dashboard().income) * 100 | number:'1.0-0') : 0 }}%</strong></div></div>
+        <div class="management-grid finance-grid">
+          <article class="panel form-panel"><h2>Nuevo movimiento</h2><p>Registra cobros de clientes o gastos operativos.</p><form [formGroup]="transactionForm" (ngSubmit)="addTransaction()"><label>Tipo<select formControlName="type"><option value="INCOME">Ingreso</option><option value="EXPENSE">Gasto</option></select></label><label>Descripción<input formControlName="description" placeholder="Ej. Mensualidad GOZU Negocio"></label><div class="form-row"><label>Monto S/<input type="number" step="0.01" formControlName="amount"></label><label>Fecha<input type="date" formControlName="occurredOn"></label></div><button class="primary-btn" [disabled]="saving()"><i class="bi bi-plus-lg"></i> Registrar movimiento</button></form></article>
+          <article class="panel table-panel"><div class="panel-title"><div><h2>Historial</h2><p>Movimientos más recientes</p></div></div><div class="activity-list"><div class="activity-item large" *ngFor="let tx of transactions()"><span [class.income]="tx.type === 'INCOME'"><i class="bi" [class.bi-arrow-down-left]="tx.type === 'INCOME'" [class.bi-arrow-up-right]="tx.type === 'EXPENSE'"></i></span><div><strong>{{ tx.description }}</strong><small>{{ tx.type === 'INCOME' ? 'Ingreso' : 'Gasto' }} · {{ tx.occurredOn | date:'dd MMM yyyy' }}</small></div><b [class.negative]="tx.type === 'EXPENSE'">{{ tx.type === 'EXPENSE' ? '−' : '+' }}{{ formatMoney(tx.amount) }}</b></div></div></article>
+        </div>
+      </section>
+    </main>
+  </div>
+</ng-template>

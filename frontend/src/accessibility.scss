@@ -1,0 +1,43 @@
+/* Explicit foreground/background pairs for the public site's light and dark surfaces. */
+app-home .hero-proof,
+app-home .journey-track small,
+app-home .service-catalog summary small,
+app-home .funnel-card>p,
+app-home .measurement-journey span,
+app-home .event-list span,
+app-home .event-list b,
+app-home .event-summary span,
+app-home .vitals-grid p,
+app-home .process-time,
+app-home .price-card header p,
+app-home .price small,
+app-home .price>span,
+app-home .setup span,
+app-home .included-strip span,
+app-home .included-strip b,
+app-home .selected-plan>span,
+app-home .contact-direct span,
+app-home .faq-grid>div>p { color:#535d6c!important; }
+app-home .funnel-card header span,
+app-home .event-card header>span,
+app-home .vitals-grid article>span,
+app-home .brief-details summary small { color:#344e99!important; }
+app-home .editorial-chapter p,
+app-home .editorial-credit p,
+app-home .demo-tabs button { color:#454a45!important; }
+app-home .example-note { color:#23449e!important; }
+app-home .web-studio-section .section-kicker,
+app-home .custom-software-section .section-kicker,
+app-home .trust-section .section-kicker { color:#afc5ff!important; }
+app-home .solution-capabilities article>span,
+app-home .trust-grid article>span { color:#acb8cc!important; }
+app-home .web-plan-card.featured button { background:#294fb8!important; }
+app-home .whatsapp-float { background:#087b46!important; color:#fff!important; }
+app-home .hero-collage figcaption { background:#111827!important; }
+app-home .editorial-image>span { background:#111827!important; padding:6px 12px; }
+app-home input::placeholder,app-home textarea::placeholder { color:#626b78!important; opacity:1; }
+app-home a:focus-visible,app-home button:focus-visible,app-home summary:focus-visible { outline:3px solid #3158ca; outline-offset:4px; }
+@media (max-width:767px) {
+  app-home .hero-particles { display:none; }
+  app-home .site-header { backdrop-filter:none; background:#fff!important; }
+}

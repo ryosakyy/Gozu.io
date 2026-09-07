@@ -1,0 +1,288 @@
+<header class="site-header">
+  <div class="gozu-container nav-row">
+    <a class="brand-logo-link" href="#inicio" aria-label="GOZU Sistemas"><app-brand-logo [compact]="true"></app-brand-logo></a>
+    <button class="menu-button" type="button" aria-controls="primary-navigation" (click)="menuOpen.set(!menuOpen())" [attr.aria-label]="menuOpen() ? 'Cerrar navegación' : 'Abrir navegación'" [attr.aria-expanded]="menuOpen()"><i class="bi" [class.bi-list]="!menuOpen()" [class.bi-x-lg]="menuOpen()"></i></button>
+    <nav id="primary-navigation" [class.open]="menuOpen()" aria-label="Navegación principal">
+      <a href="#soluciones" (click)="menuOpen.set(false)">Soluciones</a><a href="#casos" (click)="menuOpen.set(false)">Ejemplos</a><a href="#proceso" (click)="menuOpen.set(false)">Proceso</a><a href="#planes" (click)="menuOpen.set(false)">Planes</a><a href="#contacto" (click)="menuOpen.set(false)">Contacto</a>
+    </nav>
+    <a class="header-cta" href="#contacto">Solicitar propuesta</a>
+  </div>
+</header>
+<div id="smooth-wrapper">
+<div id="smooth-content">
+
+<main id="inicio">
+  <section class="hero">
+    <canvas #heroParticles class="hero-particles" aria-hidden="true"></canvas>
+    <div class="gozu-container hero-grid">
+      <div class="hero-copy">
+        <div class="hero-meta hero-brand-mark"><app-particle-logo></app-particle-logo></div>
+        <h1 class="hero-title" aria-label="Web que vende. Software que opera.">
+          <span class="hero-line" aria-hidden="true"><span class="hero-letters hero-letters-primary">
+            @for (character of heroTitlePrimary; track $index) { <span class="hero-letter" [class.hero-space]="character === ' '">{{ character === ' ' ? '\u00a0' : character }}</span> }
+            <span class="hero-type-caret hero-primary-caret"></span>
+          </span></span>
+          <span class="hero-line" aria-hidden="true"><em class="hero-letters hero-letters-secondary">
+            @for (character of heroTitleSecondary; track $index) { <span class="hero-letter" [class.hero-space]="character === ' '">{{ character === ' ' ? '\u00a0' : character }}</span> }
+            <span class="hero-type-caret hero-secondary-caret"></span>
+          </em></span>
+        </h1>
+        <p class="lead">Páginas web para captar clientes. Sistemas a medida para ordenar tu negocio.</p>
+        <div class="hero-actions"><a class="button primary" href="#contacto" (click)="trackCta('Hero · Solicitar diagnóstico')">Solicitar diagnóstico</a><a class="button ghost" href="#proceso" (click)="trackCta('Hero · Ver proceso')">Ver cómo trabajamos</a></div>
+        <div class="hero-proof"><span><i class="bi bi-chat-square-text"></i> Diagnóstico inicial sin costo</span><span><i class="bi bi-file-earmark-check"></i> Alcance y precio por escrito</span><span><i class="bi bi-kanban"></i> Entregas verificables</span></div>
+      </div>
+      <figure class="hero-collage" aria-label="GOZU diseña y desarrolla soluciones digitales para empresas">
+        <div class="collage-orbit" aria-hidden="true"></div>
+        <div class="collage-panel collage-main" data-hero-layer="main"><img src="/images/product-strategy.webp" alt="Equipo profesional desarrollando una plataforma digital" fetchpriority="high" decoding="async"></div>
+        <div class="collage-panel collage-top" data-hero-layer="top"><img src="/images/software-engineer.webp" alt="Ingeniera de software trabajando en una computadora portátil" loading="lazy" decoding="async"></div>
+        <div class="collage-panel collage-bottom" data-hero-layer="bottom"><img src="/images/warehouse-tablet.webp" alt="Profesional gestionando una operación de almacén desde una tablet" loading="lazy" decoding="async"></div>
+        <figcaption><span>ESTUDIO DIGITAL · PERÚ</span><b>Estrategia, UI/UX, frontend, backend y datos.</b></figcaption>
+        <div class="collage-badge" aria-hidden="true">
+          <span class="badge-ring">
+            @for (letter of badgeLetters; track $index) { <span [style.--angle]="letter.angle + 'deg'">{{ letter.character }}</span> }
+          </span>
+          <app-brand-logo [compact]="true" [symbolOnly]="true"></app-brand-logo>
+        </div>
+      </figure>
+    </div>
+  </section>
+
+  <nav class="journey-nav" aria-label="Recorrido por GOZU">
+    <div class="gozu-container journey-track">
+      <a href="#soluciones"><span>01</span><b>Soluciones</b><small>Elige tu ruta</small></a>
+      <a href="#casos"><span>02</span><b>Ejemplos</b><small>Mira soluciones</small></a>
+      <a href="#resultados"><span>03</span><b>Resultados</b><small>Qué medimos</small></a>
+      <a href="#proceso"><span>04</span><b>Método</b><small>Cómo trabajamos</small></a>
+      <a href="#entrega"><span>05</span><b>Entrega</b><small>Qué queda contigo</small></a>
+      <a href="#planes"><span>06</span><b>Inversión</b><small>Cómo empezar</small></a>
+      <a href="#contacto"><span>07</span><b>Contacto</b><small>Cuéntanos tu reto</small></a>
+    </div>
+  </nav>
+
+  <section class="paper-section" id="soluciones">
+    <span id="servicios" class="anchor-alias" aria-hidden="true"></span>
+    <div class="gozu-container">
+      <div class="section-heading" data-reveal><div><p class="section-kicker">01 · Elige tu ruta</p><h2 class="display-gozu">Vende más. Trabaja mejor.</h2></div><p>Elige qué necesitas resolver. Nosotros nos encargamos del diseño y desarrollo.</p></div>
+      <div class="solution-routes" data-stagger>
+        <article class="solution-route route-web">
+          <figure><img src="/images/digital-dashboard.webp" alt="Página web profesional mostrada en una computadora" loading="lazy" decoding="async"></figure>
+          <div class="route-copy"><span>RUTA A · VENDER Y CAPTAR</span><h3>Tu próxima oportunidad empieza en tu web.</h3><p>Landing pages, webs corporativas y tiendas online fáciles de usar.</p><ul><li>Presencia profesional</li><li>Captación medible</li><li>Contenido administrable</li></ul><a href="#paginas-web">Explorar páginas web <i class="bi bi-arrow-right"></i></a></div>
+        </article>
+        <article class="solution-route route-system">
+          <figure><img src="/images/inventory.webp" alt="Sistema de inventario y operación para empresas" loading="lazy" decoding="async"></figure>
+          <div class="route-copy"><span>RUTA B · ORDENAR Y AUTOMATIZAR</span><h3>Tu operación, en un solo lugar.</h3><p>Inventario, ventas y procesos conectados, con permisos y reportes.</p><ul><li>Menos trabajo manual</li><li>Datos conectados</li><li>Control para crecer</li></ul><a href="#software-medida">Explorar software a medida <i class="bi bi-arrow-right"></i></a></div>
+        </article>
+      </div>
+      <details class="service-catalog">
+        <summary><span><small>¿Buscas algo específico?</small><b>Ver catálogo completo de servicios</b></span><i class="bi bi-plus-lg"></i></summary>
+        <div class="service-grid">
+          @for (service of services(); track service.name; let i = $index) {
+            <article class="service-card"><div class="service-number">0{{ i + 1 }}</div><div class="service-category">{{ service.category }}</div><h3>{{ service.name }}</h3><p>{{ service.description }}</p><div class="service-footer"><b>Alcance definido contigo</b><a href="#contacto">Conversar →</a></div></article>
+          }
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <section class="editorial-services" id="casos" aria-labelledby="editorial-services-title">
+    <div class="gozu-container editorial-chapter" data-reveal><span>02 · EJEMPLOS REPRESENTATIVOS</span><p>Inventario, restaurantes y reservas.</p></div>
+    <div class="gozu-container editorial-heading" data-reveal><h2 id="editorial-services-title"><span>Así se puede ver una solución</span><em>trabajando de verdad.</em></h2><p>Ejemplos ilustrativos que adaptamos a tu operación; no son casos de clientes.</p></div>
+    <div class="gozu-container demo-gallery" role="region" aria-roledescription="carrusel" aria-label="Ejemplos de soluciones GOZU" tabindex="0" (keydown.arrowleft)="previousDemo()" (keydown.arrowright)="nextDemo()" (touchstart)="onDemoTouchStart($event)" (touchend)="onDemoTouchEnd($event)">
+      <div class="demo-viewport">
+        <div class="demo-track" [style.transform]="'translate3d(-' + (activeDemo() * 100) + '%, 0, 0)'">
+          @for (demo of demoSlides; track demo.key; let i = $index) {
+            <div class="demo-slide" [class.active]="activeDemo() === i" role="group" aria-roledescription="diapositiva" [attr.aria-label]="(i + 1) + ' de ' + demoSlides.length" [attr.aria-hidden]="activeDemo() !== i" [attr.inert]="activeDemo() !== i ? '' : null">
+              <figure class="editorial-image" data-editorial-image><img [src]="demo.image" [alt]="demo.alt" loading="lazy" decoding="async"><span>0{{ i + 1 }}</span></figure>
+              <div class="editorial-copy"><small>{{ demo.kicker }}</small><h3>{{ demo.title }}</h3><p>{{ demo.description }}</p><div>@for (tag of demo.tags; track tag) { <span>{{ tag }}</span> }</div><span class="example-note"><i class="bi bi-stars"></i> Referencia adaptable a tu negocio</span></div>
+            </div>
+          }
+        </div>
+      </div>
+      <div class="demo-gallery-footer">
+        <div class="demo-tabs" role="tablist" aria-label="Elegir ejemplo">
+          @for (demo of demoSlides; track demo.key; let i = $index) {
+            <button type="button" role="tab" [attr.aria-selected]="activeDemo() === i" [class.active]="activeDemo() === i" (click)="selectDemo(i)"><span>0{{ i + 1 }}</span>{{ demo.title }}</button>
+          }
+        </div>
+        <div class="demo-controls">
+          <span class="demo-status" aria-live="polite">0{{ activeDemo() + 1 }} / 0{{ demoSlides.length }}</span>
+          <button type="button" aria-label="Ejemplo anterior" (click)="previousDemo()" [disabled]="activeDemo() === 0"><i class="bi bi-chevron-left"></i></button>
+          <button type="button" aria-label="Ejemplo siguiente" (click)="nextDemo()" [disabled]="activeDemo() === demoSlides.length - 1"><i class="bi bi-chevron-right"></i></button>
+        </div>
+      </div>
+      <div class="demo-progress" aria-hidden="true"><i [style.width.%]="((activeDemo() + 1) / demoSlides.length) * 100"></i></div>
+    </div>
+    <div class="gozu-container editorial-credit"><span>Ejemplos de referencia</span><p>El diseño final, los módulos y las integraciones se adaptan al proceso y a la identidad de cada empresa.</p></div>
+  </section>
+
+  <section class="web-studio-section" id="paginas-web">
+    <div class="gozu-container web-studio-intro" data-reveal>
+      <div><p class="section-kicker">Solución A · Páginas web</p><h2 class="display-gozu">Páginas que no parecen plantilla.</h2></div>
+      <div><p>Primero definimos a quién debe convencer la web y qué acción debe lograr. Después diseñamos, desarrollamos, publicamos y medimos.</p><a href="#contacto" (click)="trackCta('Web Studio · Cotizar')">Cotizar una página <i class="bi bi-arrow-right"></i></a></div>
+    </div>
+    <div class="gozu-container web-studio-showcase">
+      <figure class="web-studio-photo image-reveal"><img src="/images/software-engineer.webp" alt="Profesional diseñando y desarrollando una experiencia digital" loading="lazy" decoding="async"><figcaption><span>Diseño con intención</span><b>De una visita a una acción medible.</b></figcaption></figure>
+      <div class="web-deliverables" data-reveal>
+        <article><i class="bi bi-bezier2"></i><div><b>Estrategia y UX</b><span>Audiencia, propuesta, jerarquía, navegación y llamadas a la acción.</span></div></article>
+        <article><i class="bi bi-palette2"></i><div><b>Identidad visual</b><span>Dirección de arte, tipografía, movimiento y componentes coherentes.</span></div></article>
+        <article><i class="bi bi-code-square"></i><div><b>Desarrollo profesional</b><span>Angular o React, responsive, CMS, formularios e integraciones.</span></div></article>
+        <article><i class="bi bi-speedometer"></i><div><b>Velocidad y SEO técnico</b><span>Metadatos, estructura, accesibilidad y metas Core Web Vitals.</span></div></article>
+        <article><i class="bi bi-graph-up-arrow"></i><div><b>Analítica de negocio</b><span>WhatsApp, formularios, planes y eventos importantes medidos.</span></div></article>
+      </div>
+    </div>
+    <div class="gozu-container web-plan-grid">
+        @for (plan of webPlans; track plan.name) {
+        <article class="web-plan-card" [class.featured]="plan.featured">
+          <header><span>{{ plan.time }}</span><h3>{{ plan.name }}</h3><p>{{ plan.description }}</p></header>
+          <div class="web-price"><small>Proyecto desde</small><b>S/ {{ plan.price }}</b></div>
+          <ul>@for (feature of plan.features; track feature) { <li><i class="bi bi-check2"></i>{{ feature }}</li> }</ul>
+          <button type="button" (click)="selectWebPlan(plan)">Cotizar este alcance <i class="bi bi-arrow-up-right"></i></button>
+        </article>
+      }
+    </div>
+    <div class="gozu-container care-plan" data-reveal><i class="bi bi-arrow-repeat"></i><div><span>Mantenimiento Web Care · desde S/ 149/mes</span><b>Hosting, SSL, backups, seguridad, cambios pequeños y reporte mensual.</b></div><a href="#contacto" (click)="trackCta('Web Care · Cotizar')">Quiero continuidad</a></div>
+  </section>
+
+  <section class="custom-software-section" id="software-medida">
+    <div class="gozu-container">
+      <div class="section-heading dark" data-reveal><div><p class="section-kicker text-lime">Solución B · Software a medida</p><h2 class="display-gozu">Tu operación define el sistema. No una plantilla genérica.</h2></div><p>Antes de programar entendemos usuarios, reglas, datos e integraciones. Así construimos lo necesario y evitamos funciones de relleno.</p></div>
+      <div class="custom-software-hero">
+        <figure class="custom-software-photo image-reveal"><img src="/images/warehouse-tablet.webp" alt="Profesional controlando inventario y operaciones desde una tablet" loading="lazy" decoding="async"><figcaption><span>Procesos reales</span><b>El proyecto empieza por el problema, no por la tecnología.</b></figcaption></figure>
+        <div class="need-signals" data-reveal>
+          <p>¿Cuándo vale la pena?</p>
+          <article><i class="bi bi-file-earmark-spreadsheet"></i><div><b>La operación vive en Excel y WhatsApp</b><span>La información se repite, se pierde o depende de una sola persona.</span></div></article>
+          <article><i class="bi bi-diagram-3"></i><div><b>Tus herramientas no se conectan</b><span>Ventas, inventario, clientes y reportes cuentan historias diferentes.</span></div></article>
+          <article><i class="bi bi-arrow-repeat"></i><div><b>El equipo repite tareas manuales</b><span>Aprobaciones, avisos, cálculos o consolidaciones consumen horas.</span></div></article>
+          <article><i class="bi bi-graph-up-arrow"></i><div><b>El sistema actual ya no escala</b><span>Faltan permisos, sedes, trazabilidad, rendimiento o integraciones.</span></div></article>
+        </div>
+      </div>
+      <div class="solution-capabilities" data-stagger>
+        <article><span>01</span><i class="bi bi-boxes"></i><h3>Sistemas de gestión</h3><p>Ventas, compras, inventario, operaciones, caja, reportes, permisos y múltiples sedes.</p></article>
+        <article><span>02</span><i class="bi bi-person-workspace"></i><h3>Portales y aplicaciones</h3><p>Experiencias seguras para clientes, proveedores, colaboradores o equipos de campo.</p></article>
+        <article><span>03</span><i class="bi bi-plug"></i><h3>Integraciones y automatización</h3><p>APIs, pagos, SUNAT, WhatsApp, correo y flujos entre las herramientas que ya utilizas.</p></article>
+        <article><span>04</span><i class="bi bi-bar-chart-line"></i><h3>Datos para decidir</h3><p>Indicadores, alertas, trazabilidad y paneles construidos sobre datos de tu operación.</p></article>
+      </div>
+      <div class="delivery-comparison" data-reveal>
+        <div class="comparison-head"><span>Decisión crítica</span><b>Proyecto sin control</b><strong>Con GOZU</strong></div>
+        <div><span>Alcance</span><p>Lista ambigua de funciones.</p><p>Usuarios, flujos, entregables y criterios de aceptación por escrito.</p></div>
+        <div><span>Avance</span><p>Se muestra recién al final.</p><p>Revisiones por ciclos para validar antes de seguir construyendo.</p></div>
+        <div><span>Datos y acceso</span><p>Dependencia total del proveedor.</p><p>Accesos, exportación, documentación y responsabilidades acordadas.</p></div>
+        <div><span>Lanzamiento</span><p>Publicar y esperar que funcione.</p><p>Pruebas, carga inicial, capacitación y salida controlada.</p></div>
+        <div><span>Continuidad</span><p>Soporte reactivo sin prioridades.</p><p>Monitoreo, respaldo, soporte y evolución según el plan contratado.</p></div>
+      </div>
+      <div class="diagnostic-cta" data-reveal><div><span>Primer paso</span><b>Cuéntanos el proceso que hoy te quita tiempo o control.</b><p>Te ayudamos a decidir si conviene configurar una base existente, integrar herramientas o desarrollar a medida.</p></div><a href="#contacto" (click)="trackCta('Software a medida · Diagnóstico')">Solicitar diagnóstico <i class="bi bi-arrow-right"></i></a></div>
+    </div>
+  </section>
+
+  <section class="results-section" id="resultados">
+    <div class="gozu-container">
+      <div class="section-heading" data-reveal><div><p class="section-kicker">03 · Resultados medibles</p><h2 class="display-gozu">Tus datos reales desde el lanzamiento.</h2></div><p>Definimos qué significa una oportunidad para tu negocio y registramos las acciones necesarias para entender captación, operación y mejora.</p></div>
+      <div class="measurement-grid">
+        <article class="funnel-card" data-reveal>
+          <header><div><span>PLAN DE MEDICIÓN</span><h3>De la visita a la oportunidad</h3></div><b>Sin datos ficticios</b></header>
+          <div class="measurement-journey" aria-label="Etapas de medición: atracción, intención, oportunidad y cierre">
+            <div><i class="bi bi-megaphone"></i><span><b>Atracción</b>Canal y página de entrada</span></div>
+            <div><i class="bi bi-cursor"></i><span><b>Intención</b>CTA, plan o contacto</span></div>
+            <div><i class="bi bi-person-check"></i><span><b>Oportunidad</b>Formulario y diagnóstico</span></div>
+            <div><i class="bi bi-check2-circle"></i><span><b>Cierre</b>Propuesta y decisión</span></div>
+          </div>
+          <p>El panel comienza vacío y se alimenta únicamente con interacciones reales de tu sitio y tu proceso comercial.</p>
+        </article>
+        <article class="event-card" data-reveal>
+          <header><span>INSTRUMENTACIÓN INCLUIDA</span><h3>Lo que dejamos preparado</h3></header>
+          <div class="event-list"><div><i class="bi bi-signpost-split"></i><span><b>Mapa de eventos</b>Qué medir y por qué</span></div><div><i class="bi bi-code-square"></i><span><b>Implementación</b>Eventos en web y sistema</span></div><div><i class="bi bi-columns-gap"></i><span><b>Panel central</b>Lectura comercial y operativa</span></div><div><i class="bi bi-arrow-up-right-circle"></i><span><b>Mejora</b>Prioridades basadas en evidencia</span></div></div>
+          <div class="event-summary"><div><b>Captación</b><span>Origen, CTA y consulta</span></div><div><b>Operación</b><span>Uso, estados y tiempos</span></div><div><b>Decisión</b><span>Indicadores accionables</span></div></div>
+        </article>
+      </div>
+      <div class="vitals-grid">
+        @for (metric of webMetrics; track metric.code) { <article><span>{{ metric.code }}</span><strong>{{ metric.target }}</strong><b>{{ metric.label }}</b><p>{{ metric.detail }}</p></article> }
+      </div>
+    </div>
+  </section>
+
+  <section class="process-section" id="proceso">
+    <div class="gozu-container">
+      <div class="section-heading" data-reveal><div><p class="section-kicker">04 · Método verificable</p><h2 class="display-gozu">De tu idea al lanzamiento.</h2></div><p>Acordamos el alcance, revisamos avances y probamos antes de publicar.</p></div>
+      <div class="process-grid" data-stagger><article><b>01</b><span class="process-time">Inicio</span><h3>Diagnóstico</h3><p>Entendemos el problema, las personas usuarias, los datos actuales y el resultado esperado.</p></article><article><b>02</b><span class="process-time">Definición</span><h3>Diseño y propuesta</h3><p>Presentamos alcance, arquitectura, experiencia, hitos, inversión y responsabilidades.</p></article><article><b>03</b><span class="process-time">Por ciclos</span><h3>Construcción visible</h3><p>Desarrollamos por etapas y revisamos funciones operativas antes de avanzar.</p></article><article><b>04</b><span class="process-time">Validación</span><h3>Pruebas con tus datos</h3><p>Revisamos permisos, reglas, rendimiento, carga inicial y escenarios de uso real.</p></article><article><b>05</b><span class="process-time">Producción</span><h3>Lanzamiento y evolución</h3><p>Capacitamos, desplegamos, medimos y continuamos según el plan de soporte.</p></article></div>
+    </div>
+  </section>
+
+  <section class="trust-section" id="entrega">
+    <span id="garantias" class="anchor-alias" aria-hidden="true"></span>
+    <div class="gozu-container">
+      <div class="section-heading" data-reveal><div><p class="section-kicker">05 · Entrega confiable</p><h2 class="display-gozu">Tu proyecto, bajo control.</h2></div><p>Recibe accesos, documentación y soporte según tu plan.</p></div>
+      <div class="trust-grid" data-stagger>
+        <article><i class="bi bi-file-earmark-text"></i><span>01</span><h3>Alcance y acuerdos</h3><p>Funciones, entregables, pagos, cambios y responsabilidades definidos antes de construir.</p></article>
+        <article><i class="bi bi-kanban"></i><span>02</span><h3>Avance visible</h3><p>Tablero, revisiones y criterios de aceptación para comprobar el progreso del proyecto.</p></article>
+        <article><i class="bi bi-code-slash"></i><span>03</span><h3>Tu información bajo control</h3><p>Datos, accesos, exportación, documentación y entrega técnica según lo acordado.</p></article>
+        <article><i class="bi bi-headset"></i><span>04</span><h3>Continuidad real</h3><p>Hosting, seguridad, respaldos, soporte y evolución con prioridades transparentes.</p></article>
+      </div>
+      <div class="delivery-details">
+        <details id="tecnologia"><summary><span><small>ARQUITECTURA PROFESIONAL</small><b>Tecnología elegida para cada responsabilidad</b></span><i class="bi bi-plus-lg"></i></summary><p>Angular o React para la experiencia; Java Spring Boot para reglas robustas; PostgreSQL para datos consistentes; Docker, APIs y cloud para operar y evolucionar.</p><div class="tech-list">@for (technology of technologies; track technology) { <span>{{ technology }}</span> }</div></details>
+        <details id="integraciones"><summary><span><small>ECOSISTEMA PARA PERÚ</small><b>Integraciones que eliminan trabajo y mejoran el cobro</b></span><i class="bi bi-plus-lg"></i></summary><p>Priorizamos solo lo que aporta al negocio: pagos, comprobantes electrónicos, WhatsApp, portales, múltiples sedes y analítica comercial.</p><div class="integration-chips"><span>Culqi y pagos</span><span>SUNAT</span><span>WhatsApp</span><span>Portal de clientes</span><span>Multisucursal</span><span>Analítica</span></div></details>
+      </div>
+    </div>
+  </section>
+
+  <section class="pricing-section" id="planes">
+    <div class="gozu-container">
+      <div class="section-heading pricing-heading" data-reveal><div><p class="section-kicker">06 · Inversión transparente</p><h2 class="display-gozu">Elige cómo empezar.</h2></div><div><p>Precios de referencia. Confirmamos alcance, plazos e inversión en tu propuesta.</p><div class="billing-toggle" role="group" aria-label="Frecuencia de pago"><button type="button" [class.active]="!annualBilling()" (click)="annualBilling.set(false)">Mensual</button><button type="button" [class.active]="annualBilling()" (click)="annualBilling.set(true)">Anual <b>2 meses menos</b></button></div></div></div>
+      <div class="pricing-grid" data-stagger>
+        @for (plan of plans; track plan.name) {
+          <article class="price-card" [class.featured]="plan.featured">
+            @if (plan.featured) { <div class="popular-tag"><i class="bi bi-stars"></i> RECOMENDADO</div> }
+            <header><span>{{ plan.badge }}</span><h3>{{ plan.name }}</h3><p>{{ plan.audience }}</p></header>
+            <div class="price"><small>Desde</small><strong>S/ {{ planPrice(plan) }}</strong><span>/ mes</span></div>
+            @if (annualBilling()) { <p class="annual-copy">S/ {{ annualTotal(plan) }} al año · ahorras S/ {{ plan.monthlyPrice * 2 }}</p> }
+            <div class="setup"><span>Implementación desde</span><b>S/ {{ plan.setupPrice }}</b><i class="bi bi-info-circle" title="Se cotiza según datos, integraciones y alcance final"></i></div>
+            <p class="plan-description">{{ plan.description }}</p>
+            <div class="plan-year-total"><span>Primer año desde</span><strong>S/ {{ plan.setupPrice + plan.monthlyPrice * (annualBilling() ? 10 : 12) | number:'1.0-0' }}</strong><small>Implementación + 12 meses de servicio. {{ annualBilling() ? 'Servicio con pago anual anticipado.' : 'Servicio con pagos mensuales.' }} Alcance y costos de terceros por confirmar en la propuesta.</small></div>
+            <ul>@for (feature of plan.features; track feature) { <li><i class="bi bi-check2"></i>{{ feature }}</li> }</ul>
+            <button type="button" (click)="selectPlan(plan)">Elegir {{ plan.name }} <i class="bi bi-arrow-right"></i></button>
+          </article>
+        }
+      </div>
+      <p class="market-position"><i class="bi bi-compass"></i><span><b>La propuesta final no se calcula a ciegas.</b> Usuarios, datos, integraciones, seguridad y criterios de aceptación determinan el alcance. Si una solución más simple resuelve el problema, también te lo diremos.</span></p>
+      <div class="included-strip"><div><i class="bi bi-shield-check"></i><span><b>Incluido en cada suscripción</b>Hosting administrado, SSL, backups, actualizaciones de seguridad y soporte.</span></div><div><i class="bi bi-arrow-repeat"></i><span><b>Sin encierro comercial</b>Puedes cambiar o cancelar el soporte mensual; te entregamos una exportación de tus datos.</span></div><div><i class="bi bi-rocket-takeoff"></i><span><b>Pagas al activar</b>La mensualidad comienza cuando el sistema acordado entra en operación.</span></div></div>
+    </div>
+  </section>
+
+  <section class="quote-section" id="contacto">
+    <span id="cotizar" class="anchor-alias" aria-hidden="true"></span>
+    <div class="gozu-container quote-grid">
+      <div class="quote-copy" data-reveal><p class="section-kicker text-lime">07 · Diagnóstico inicial sin costo</p><h2 class="display-gozu">Cuéntanos qué necesitas resolver.</h2><p>Cuéntanos tu idea. Te orientamos sobre la solución y el siguiente paso.</p><div class="selected-plan"><span>Ruta de referencia</span><strong>{{ quoteForm.controls.preferredPlan.value }}</strong><a href="#planes">Ver opciones</a></div><div class="contact-direct"><i class="bi bi-whatsapp"></i><div><b>+51 967 953 115</b><span>Contacto comercial · Perú</span></div></div></div>
+      <form [formGroup]="quoteForm" (ngSubmit)="submitQuote()" class="quote-form" data-reveal>
+        <div class="form-grid"><label>Nombre<input formControlName="name" autocomplete="name" placeholder="Tu nombre"></label><label>Negocio<input formControlName="businessName" autocomplete="organization" placeholder="Nombre de empresa"></label><label>WhatsApp<input formControlName="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="999 999 999"></label><label>Ciudad<select formControlName="city"><option>Lima</option><option>Arequipa</option><option>Trujillo</option><option>Chiclayo</option><option>Piura</option><option>Cusco</option><option>Otra ciudad</option></select></label><label>Tipo de proyecto<select formControlName="industry"><option>Software a medida o automatización</option><option>Página web, ecommerce o presencia digital</option><option>Sistema de gestión o ERP</option><option>Portal para clientes o proveedores</option><option>Integración entre sistemas</option><option>Otro proyecto digital</option></select></label><label>Ruta de referencia<select formControlName="preferredPlan"><option value="A medida · Diagnóstico y propuesta">A medida · Diagnóstico y propuesta</option><optgroup label="Páginas web">@for (plan of webPlans; track plan.name) { <option [value]="'Web · ' + plan.name">{{ plan.name }} · desde S/ {{ plan.price }}</option> }</optgroup><optgroup label="Base + continuidad">@for (plan of plans; track plan.name) { <option [value]="plan.name">{{ plan.name }} · desde S/ {{ plan.monthlyPrice }}/mes</option> }</optgroup></select></label></div>
+        <details class="brief-details"><summary><span><small>OPCIONAL, PERO ÚTIL</small><b>Añadir datos de operación y módulos</b></span><i class="bi bi-plus-lg"></i></summary><div class="form-grid"><label>Usuarios<select formControlName="usersRange"><option>1 a 3 usuarios</option><option>4 a 10 usuarios</option><option>11 a 30 usuarios</option><option>Más de 30 usuarios</option></select></label><label>Locales<select formControlName="locationsRange"><option>1 local</option><option>2 a 3 locales</option><option>4 a 5 locales</option><option>Más de 5 locales</option></select></label><label>¿Cómo trabajas hoy?<select formControlName="currentSystem"><option>Excel, cuaderno o WhatsApp</option><option>Otro sistema que quiero reemplazar</option><option>Varios sistemas sin conectar</option><option>Negocio nuevo, aún sin sistema</option></select></label><label>Volumen aproximado<select formControlName="volumeRange"><option>Hasta 500 operaciones al mes</option><option>501 a 2,000 operaciones al mes</option><option>2,001 a 10,000 operaciones al mes</option><option>Más de 10,000 operaciones al mes</option></select></label><label>Inversión prevista<select formControlName="budgetRange"><option>S/ 1,000 a S/ 3,000</option><option>S/ 3,001 a S/ 7,000</option><option>S/ 7,001 a S/ 15,000</option><option>Más de S/ 15,000</option><option>Necesito que GOZU lo estime</option></select></label><label>Prioridad<select formControlName="urgency"><option>Quiero evaluar la idea</option><option>Empezar este mes</option><option>Es urgente</option><option>Proyecto por etapas</option></select></label></div><fieldset><legend>Módulos <span>{{ selectedModules().length }} seleccionados</span></legend><div class="module-grid">@for (module of modules; track module) { <button type="button" [class.active]="selectedModules().includes(module)" (click)="toggleModule(module)"><i class="bi" [class.bi-check-circle-fill]="selectedModules().includes(module)" [class.bi-circle]="!selectedModules().includes(module)"></i>{{ module }}</button> }</div></fieldset></details>
+        <label>Requerimientos especiales<textarea formControlName="details" placeholder="Procesos, reportes, integraciones o problemas que necesitas resolver."></textarea></label>
+        @if (quoteForm.invalid && quoteForm.touched) { <p class="form-error">Completa nombre, negocio y WhatsApp.</p> }
+        <p class="quote-expectation">Primero revisamos tu necesidad. Después definimos alcance, plazo e inversión contigo.</p>
+        <button class="submit-button" type="submit" [disabled]="submitting()" [attr.aria-busy]="submitting()">{{ submitting() ? 'Registrando solicitud…' : quoteError() ? 'Reintentar registro' : 'Solicitar propuesta' }} <i class="bi bi-arrow-up-right"></i></button>
+        <div aria-live="polite" aria-atomic="true">
+          @if (sent()) { <div class="quote-feedback"><i class="bi bi-check-circle-fill"></i><div><strong>Tu solicitud quedó registrada.</strong><p>Puedes continuar la conversación por WhatsApp con el resumen de tu proyecto.</p></div></div> }
+          @if (quoteError()) { <div class="quote-feedback quote-feedback-error" role="alert"><i class="bi bi-exclamation-circle"></i><div><strong>No pudimos confirmar el registro.</strong><p>Tus datos siguen aquí. Puedes reintentar o enviarnos el resumen directamente por WhatsApp.</p></div></div> }
+        </div>
+        @if (sent() || quoteError()) { <a class="quote-whatsapp" [href]="quoteWhatsAppUrl()" target="_blank" rel="noopener noreferrer" (click)="trackWhatsApp('Resumen de propuesta')"><i class="bi bi-whatsapp"></i> Continuar por WhatsApp <i class="bi bi-arrow-up-right"></i></a> }
+      </form>
+    </div>
+  </section>
+
+  <section class="faq-section">
+    <div class="gozu-container faq-grid">
+      <div data-reveal><p class="section-kicker">Preguntas frecuentes</p><h2 class="display-gozu">Antes de empezar.</h2><p>Lo importante, explicado sin letras pequeñas.</p></div>
+      <div class="faq-list" data-reveal>
+        <details open><summary>¿Cómo calculan el precio de un desarrollo?<i class="bi bi-plus-lg"></i></summary><p>Después del diagnóstico definimos usuarios, flujos, datos, integraciones, seguridad y criterios de aceptación. Con eso preparamos alcance, hitos e inversión por escrito.</p></details>
+        <details><summary>¿Cuánto tiempo demora?<i class="bi bi-plus-lg"></i></summary><p>Depende del alcance y de la disponibilidad para validar. La propuesta separa etapas y fechas; no prometemos un plazo único para proyectos que son diferentes.</p></details>
+        <details><summary>¿El código y los datos quedan bajo mi control?<i class="bi bi-plus-lg"></i></summary><p>La propuesta establece propiedad, accesos, repositorio, credenciales, exportación de datos y documentación. Queremos que estas condiciones sean claras antes de iniciar.</p></details>
+        <details><summary>¿Puedo revisar el sistema antes del lanzamiento?<i class="bi bi-plus-lg"></i></summary><p>Sí. Revisamos entregas funcionales durante la construcción y hacemos pruebas con escenarios y datos acordados antes de producción.</p></details>
+        <details><summary>¿La mensualidad incluye soporte?<i class="bi bi-plus-lg"></i></summary><p>El plan mensual puede incluir hosting, copias de seguridad, monitoreo, mantenimiento y una bolsa de mejoras, según la propuesta.</p></details>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer><div class="gozu-container footer-grid"><div><a class="brand-logo-link" href="#inicio" aria-label="GOZU Sistemas"><app-brand-logo [inverse]="true"></app-brand-logo></a><p>Páginas web y software full-stack para empresas que quieren crecer con control.</p></div><div><b>Servicios</b><a href="#paginas-web">Web y ecommerce</a><a href="#software-medida">Software a medida</a><a href="#proceso">Cómo trabajamos</a></div><div><b>Contacto</b><a href="tel:+51967953115">+51 967 953 115</a><a href="#contacto">Solicitar diagnóstico</a></div></div><div class="gozu-container footer-bottom"><span>© 2026 GOZU Sistemas Perú</span><span>Atención en Perú y Latinoamérica</span></div></footer>
+</div>
+</div>
+
+<a class="whatsapp-float" [href]="'https://wa.me/' + whatsapp + '?text=Hola%20GOZU%2C%20quiero%20cotizar%20una%20p%C3%A1gina%20web%20o%20sistema'" target="_blank" rel="noopener" (click)="trackWhatsApp()"><i class="bi bi-whatsapp"></i> Cotizar</a>

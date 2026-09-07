@@ -1,0 +1,6 @@
+export interface ServiceOffering { id?: number; name: string; category: string; description: string; monthlyPrice: number; active?: boolean; }
+export interface ProjectShowcase { id?: number; name: string; industry: string; summary: string; imagePath: string; technologies: string; featured: boolean; }
+export interface Lead { id?: number; name: string; businessName: string; phone: string; city: string; industry: string; modules: string; usersRange: string; locationsRange: string; urgency: string; preferredPlan: string; currentSystem: string; volumeRange: string; budgetRange: string; details: string; status?: string; createdAt?: string; }
+export interface Client { id?: number; businessName: string; contactName: string; phone: string; planName: string; monthlyFee: number; status: string; createdAt?: string; }
+export interface FinanceTransaction { id?: number; type: 'INCOME' | 'EXPENSE'; description: string; amount: number; occurredOn: string; }
+export interface Dashboard { activeClients: number; newLeads: number; mrr: number; income: number; expenses: number; profit: number; demoViews: number; popularDemo: string; pageViews: number; ctaClicks: number; leadConversion: number; popularPlan: string; }

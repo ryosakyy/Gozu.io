@@ -1,0 +1,43 @@
+services:
+  database:
+    image: postgres:17-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-gozu}
+      POSTGRES_USER: ${POSTGRES_USER:-gozu}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Configura POSTGRES_PASSWORD en .env}
+    volumes:
+      - gozu_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-gozu} -d ${POSTGRES_DB:-gozu}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build: ./backend
+    restart: unless-stopped
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+      DATABASE_URL: jdbc:postgresql://database:5432/${POSTGRES_DB:-gozu}
+      DATABASE_USER: ${POSTGRES_USER:-gozu}
+      DATABASE_PASSWORD: ${POSTGRES_PASSWORD}
+      GOZU_ADMIN_USER: ${GOZU_ADMIN_USER:-admin@gozu.pe}
+      GOZU_ADMIN_PASSWORD: ${GOZU_ADMIN_PASSWORD:?Configura GOZU_ADMIN_PASSWORD en .env}
+      COOKIE_SECURE: true
+      GOZU_CORS_ORIGINS: ${GOZU_CORS_ORIGINS:?Configura el origen HTTPS de tu dominio}
+    depends_on:
+      database:
+        condition: service_healthy
+
+  frontend:
+    build: ./frontend
+    restart: unless-stopped
+    ports:
+      - "${WEB_PORT:-80}:80"
+    depends_on:
+      backend:
+        condition: service_started
+
+volumes:
+  gozu_data:
